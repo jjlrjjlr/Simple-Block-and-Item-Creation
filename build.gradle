@@ -21,8 +21,13 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+
+	runtime 'com.fasterxml.jackson.core:2.0.1'
 }
 
+repositories{
+	mavenCentral()
+}
 processResources {
 	inputs.property "version", project.version
 
@@ -55,6 +60,8 @@ jar {
 	from "LICENSE"
 }
 
+
+
 // configure the maven publication
 publishing {
 	publications {
@@ -68,10 +75,8 @@ publishing {
 			}
 		}
 	}
-
 	// select the repositories you want to publish to
 	repositories {
-		// uncomment to publish to the local maven
-		// mavenLocal()
+		//mavenLocal()
 	}
 }
