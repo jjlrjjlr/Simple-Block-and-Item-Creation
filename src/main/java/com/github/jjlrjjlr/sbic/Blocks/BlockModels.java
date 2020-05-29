@@ -26,7 +26,13 @@ public class BlockModels {
     }
 
     public static void blockModelWriter(JsonObject jsonIn){
+        if (jsonIn == null){
+            logger.error("Null value recieved as input for BlockModels.blockModelWriter(JsonObject);");
+            return;
+        }
+
         String blockId = jsonIn.get("id").getAsString().toLowerCase();
+        
         if (!jsonIn.get("display").getAsJsonObject().has("model")){
             logger.warn("Block " + blockId + " does not define a desired model, if this is intentional please ignore this warning.");
             return;

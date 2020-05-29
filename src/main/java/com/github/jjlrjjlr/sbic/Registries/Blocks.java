@@ -3,6 +3,7 @@ package com.github.jjlrjjlr.sbic.Registries;
 import com.github.jjlrjjlr.sbic.Main;
 import com.github.jjlrjjlr.sbic.References;
 import com.github.jjlrjjlr.sbic.Blocks.BlockModels;
+import com.github.jjlrjjlr.sbic.Blocks.BlockStateGenerator;
 import com.google.gson.JsonObject;
 
 import org.apache.logging.log4j.LogManager;
@@ -61,9 +62,9 @@ public class Blocks {
         
         Registry.register(Registry.ITEM, new Identifier(References.MODID, id), new BlockItem(simpleBlockInstance, new Item.Settings().group(Main.SIMPLE_BLOCK_ITEM_CREATION_ITEMGROUP)));
         
-        if(customBlock != null && customBlock.has("display")){
-            BlockModels.blockModelWriter(customBlock);
-        }
+        BlockModels.blockModelWriter(customBlock);
+        
+        BlockStateGenerator.generateCubeBlockstates(customBlock);
     }
 
     private static Material getMaterialfromObject(String materialIn, String id){

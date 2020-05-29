@@ -40,7 +40,8 @@ public class References {
         ITEM_TEXTURES, 
         BLOCK_TEXTURES,
         ITEM_MODELS,
-        BLOCK_MODELS
+        BLOCK_MODELS,
+        BLOCKSTATE_DIRECTORY
 };
 
     public static final Set<String> BLOCK_TYPES = new HashSet<String>(Arrays.asList("simple_block"));
