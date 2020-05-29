@@ -1,6 +1,8 @@
 package com.github.jjlrjjlr.sbic.Registries;
 
+import com.github.jjlrjjlr.sbic.Main;
 import com.github.jjlrjjlr.sbic.References;
+import com.github.jjlrjjlr.sbic.Blocks.BlockModels;
 import com.google.gson.JsonObject;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -26,6 +30,15 @@ public class Blocks {
         if (jsonIn.has("resistance")){
             settings.resistance(jsonIn.get("resistance").getAsFloat());
         }
+        if (jsonIn.has("slipperiness")){
+            settings.slipperiness(jsonIn.get("slipperiness").getAsFloat());
+        }
+        if (jsonIn.has("velocity_multiplier")){
+            settings.velocityMultiplier(jsonIn.get("velocity_multiplier").getAsFloat());
+        }
+        if (jsonIn.has("break_by_hand")){
+            settings.breakByHand(true);
+        }
         return settings;
     }
 
@@ -42,9 +55,16 @@ public class Blocks {
 
     public static void registerSimpleBlock(JsonObject customBlock){
         String id = customBlock.get("id").getAsString().toLowerCase();
+        logger.info("Creating simple_block with id: " + id);
         Block simpleBlockInstance = new Block(genSettingsObject(customBlock));
         Registry.register(Registry.BLOCK, new Identifier(References.MODID, id), simpleBlockInstance);
         
+        Registry.register(Registry.ITEM, new Identifier(References.MODID, id), new BlockItem(simpleBlockInstance, new Item.Settings().group(Main.SIMPLE_BLOCK_ITEM_CREATION_ITEMGROUP)));
+        try{
+            BlockModels.blockModelWriter(customBlock);
+        } catch (Exception e){
+            logger.warn(e);
+        }
     }
 
     private static Material getMaterialfromObject(String materialIn, String id){
@@ -58,6 +78,8 @@ public class Blocks {
                 return Material.BAMBOO;
             case "bamboo_sapling":
                 return Material.BAMBOO_SAPLING;
+            case "barrier":
+                return Material.BARRIER;
             case "stone":
                 return Material.STONE;
             case "":

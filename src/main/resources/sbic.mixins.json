@@ -1,0 +1,12 @@
+{
+    "required": true,
+    "package": "com.github.jjlrjjlr.sbic.mixins",
+    "compatabilityLevel": "JAVA_8",
+    "mixins": [],
+    "client": [
+        "ResourcePackInjector"
+    ],
+    "injectors": {
+        "defaultrequire": 1
+    }
+}

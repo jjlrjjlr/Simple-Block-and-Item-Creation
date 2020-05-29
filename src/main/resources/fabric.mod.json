@@ -23,6 +23,7 @@
     ]
   },
   "mixins": [
+    "sbic.mixins.json"
   ],
 
   "depends": {
