@@ -60,10 +60,9 @@ public class Blocks {
         Registry.register(Registry.BLOCK, new Identifier(References.MODID, id), simpleBlockInstance);
         
         Registry.register(Registry.ITEM, new Identifier(References.MODID, id), new BlockItem(simpleBlockInstance, new Item.Settings().group(Main.SIMPLE_BLOCK_ITEM_CREATION_ITEMGROUP)));
-        try{
+        
+        if(customBlock != null && customBlock.has("display")){
             BlockModels.blockModelWriter(customBlock);
-        } catch (Exception e){
-            logger.warn(e);
         }
     }
 

@@ -1,36 +1,27 @@
 package com.github.jjlrjjlr.sbic.Blocks;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import com.github.jjlrjjlr.sbic.References;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.ibm.icu.impl.coll.SharedObject.Reference;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BlockModels {
     private static Logger logger = LogManager.getLogger();
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    private static JsonObject getModelFromString(String modelInformation, Map<String, Object> textureMap){
-        JsonObject textureObject = new JsonObject();
+    private static JsonObject getModelFromString(String model, JsonObject textures){
         JsonObject generatedBlockModel = new JsonObject();
-        generatedBlockModel.addProperty("parent", "block/cube");
+        generatedBlockModel.addProperty("parent", model);
 
-        logger.warn(textureMap.toString());
-        
-        for (String texture : textureMap.keySet()){
-            textureObject.addProperty(texture, textureMap.get(texture).toString());
-        }
-        generatedBlockModel.add("textures", textureObject);
+        logger.warn(textures.toString());
+        generatedBlockModel.add("textures", textures);
         return generatedBlockModel;
     }
 
@@ -49,11 +40,10 @@ public class BlockModels {
             logger.warn("Block " + blockId + " does not define textures as part of it's 'display' ; No model will be generated.");
             return;
         }
-        Gson gson = new Gson();
-        Map<String, Object> textures = new Gson().fromJson(jsonIn.get("display").getAsJsonObject().get("textures").getAsString(), Map.class);
+        
         try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(References.BLOCK_MODELS, blockId + ".json")));
-            writer.write(gson.toJson(getModelFromString(jsonIn.get("display").getAsJsonObject().get("model").getAsString(), textures)));
+            FileWriter writer = new FileWriter(new File(References.BLOCK_MODELS, blockId + ".json"));
+            writer.write(gson.toJson(getModelFromString(jsonIn.get("display").getAsJsonObject().get("model").getAsString(), jsonIn.get("display").getAsJsonObject().get("textures").getAsJsonObject())));
             writer.flush();
             writer.close();
         } catch (IOException e){

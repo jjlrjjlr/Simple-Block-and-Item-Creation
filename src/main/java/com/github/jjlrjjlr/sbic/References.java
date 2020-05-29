@@ -26,6 +26,8 @@ public class References {
 
     public static final File BLOCK_MODELS = new File(RESOURCE_LOCATION + "/assets/simple_block_item_creation/models/block");
 
+    public static final File BLOCKSTATE_DIRECTORY = new File(RESOURCE_LOCATION + "/assets/simple_block_item_creation/blockstates");
+
     public static final File ITEM_TEXTURES = new File(RESOURCE_LOCATION + "/assets/simple_block_item_creation/textures/item");
 
     public static final File ITEM_MODELS = new File(RESOURCE_LOCATION + "/assets/simple_block_item_creation/models/item");
