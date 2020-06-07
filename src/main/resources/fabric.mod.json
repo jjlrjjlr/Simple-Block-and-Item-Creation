@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "sbic",
+  "id": "simple_block_item_creation",
   "version": "${version}",
 
   "name": "Simple Block and Item Creation",
@@ -10,10 +10,10 @@
   ],
   "contact": {
     "homepage": "https://github.com/jjlrjjlr",
-    "sources": "https://github.com/jjlrjjlr"
+    "sources": "https://github.com/jjlrjjlr/Simple_Block_and_Item_Creation"
   },
 
-  "license": "CC0-1.0",
+  "license": "GPL-3.0",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",

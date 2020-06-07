@@ -7,12 +7,10 @@ import java.util.Set;
 
 import com.google.gson.JsonObject;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class References {
-    private static Logger logger = LogManager.getLogger();
+    //private static Logger logger = LogManager.getLogger();
 
     public static final File CONFIG_DIRECTORY = new File(FabricLoader.getInstance().getConfigDirectory() + "/SimpleBlockItemCreation");
 
@@ -71,18 +69,16 @@ public class References {
         TEST_BLOCK.addProperty("id", "test_block");
         TEST_BLOCK.addProperty("material", "stone");
         TEST_BLOCK.addProperty("lightlevel", 2);
-        TEST_BLOCK_TEXTURES.addProperty("#all", "minecraft:block/gold_block");
+        TEST_BLOCK_TEXTURES.addProperty("all", "minecraft:block/gold_block");
         TEST_BLOCK_DISPLAY.addProperty("model", "minecraft:block/cube_all");
         TEST_BLOCK_DISPLAY.add("textures", TEST_BLOCK_TEXTURES);
         TEST_BLOCK.add("display", TEST_BLOCK_DISPLAY);
-        logger.info(TEST_BLOCK.toString());
         return TEST_BLOCK;
     }
 
     public static JsonObject getTestItem(){   
         TEST_ITEM.addProperty("type", "simple_item");
         TEST_ITEM.addProperty("id", "test_item");
-        logger.info(TEST_ITEM.toString());
         return TEST_ITEM;
     }
 }

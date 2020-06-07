@@ -20,9 +20,11 @@ public class BlockStateGenerator {
             logger.info("No 'blockstates' value found for block " + jsonIn.get("id").getAsString() +"; A default blockstate will be generated;");
             File blockstateFile = new File(References.BLOCKSTATE_DIRECTORY, jsonIn.get("id").getAsString() + ".json");
             JsonObject variants = new JsonObject();
+            JsonObject variantModels = new JsonObject();
             JsonObject defaultVariant = new JsonObject();
             defaultVariant.addProperty("model", References.MODID + ":block/" + jsonIn.get("id").getAsString());
-            variants.add("", defaultVariant);
+            variantModels.add("", defaultVariant);
+            variants.add("variants", variantModels);
             try {
                 FileWriter writer = new FileWriter(blockstateFile);
                 writer.write(gson.toJson(variants));
@@ -36,9 +38,11 @@ public class BlockStateGenerator {
                 logger.error("Block " + jsonIn.get("id").getAsString() + " contains a 'blockstates' value but doesn't contain a 'variants' value ; A default blockstate will be generated ;");
                 File blockstateFile = new File(References.BLOCKSTATE_DIRECTORY, jsonIn.get("id").getAsString() + ".json");
                 JsonObject variants = new JsonObject();
+                JsonObject variantModels = new JsonObject();
                 JsonObject defaultVariant = new JsonObject();
                 defaultVariant.addProperty("model", References.MODID + ":block/" + jsonIn.get("id").getAsString());
-                variants.add("", defaultVariant);
+                variantModels.add("", defaultVariant);
+                variants.add("variants", variantModels);
                 try {
                     FileWriter writer = new FileWriter(blockstateFile);
                     writer.write(gson.toJson(variants));

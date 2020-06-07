@@ -1,8 +1,7 @@
 package com.github.jjlrjjlr.sbic.Registries;
 
-import com.github.jjlrjjlr.sbic.Main;
 import com.github.jjlrjjlr.sbic.References;
-import com.github.jjlrjjlr.sbic.Blocks.BlockModels;
+import com.github.jjlrjjlr.sbic.Blocks.BlockModelGenerator;
 import com.github.jjlrjjlr.sbic.Blocks.BlockStateGenerator;
 import com.google.gson.JsonObject;
 
@@ -12,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -60,11 +57,14 @@ public class Blocks {
         Block simpleBlockInstance = new Block(genSettingsObject(customBlock));
         Registry.register(Registry.BLOCK, new Identifier(References.MODID, id), simpleBlockInstance);
         
-        Registry.register(Registry.ITEM, new Identifier(References.MODID, id), new BlockItem(simpleBlockInstance, new Item.Settings().group(Main.SIMPLE_BLOCK_ITEM_CREATION_ITEMGROUP)));
+        BlockModelGenerator.generateBlockModels(customBlock);
         
-        BlockModels.blockModelWriter(customBlock);
+        BlockModelGenerator.generateBlockItemModels(customBlock);
         
         BlockStateGenerator.generateCubeBlockstates(customBlock);
+        
+        //Register item using 'block_item' value.
+        Items.registerBlockItems(customBlock, simpleBlockInstance);
     }
 
     private static Material getMaterialfromObject(String materialIn, String id){
