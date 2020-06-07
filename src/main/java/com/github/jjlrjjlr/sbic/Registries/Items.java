@@ -66,7 +66,7 @@ public class Items {
         if (jsonIn.has("max_count")){
             settings.maxCount(jsonIn.get("max_count").getAsInt());
         }
-        if (jsonIn.has("fireproof")){
+        if (jsonIn.has("is_fireproof")){
             settings.fireproof();
         }
         if (jsonIn.has("max_damage")){
@@ -89,5 +89,9 @@ public class Items {
         } else{
             Registry.register(Registry.ITEM, new Identifier(References.MODID, jsonIn.get("id").getAsString()), new BlockItem(blockInstance, buildItemSettings(jsonIn.get("block_item").getAsJsonObject())));
         }
+    }
+
+    public static void registerItems(JsonObject jsonIn){
+        Registry.register(Registry.ITEM, new Identifier(References.MODID, jsonIn.get("id").getAsString()), new Item(buildItemSettings(jsonIn)));
     }
 }
