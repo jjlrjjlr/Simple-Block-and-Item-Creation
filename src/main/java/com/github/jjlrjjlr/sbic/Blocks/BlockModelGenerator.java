@@ -42,7 +42,7 @@ public class BlockModelGenerator {
     }
 
     public static void generateBlockItemModels(JsonObject jsonIn){
-        if (!jsonIn.has("block_item") && !jsonIn.get("block_item").getAsJsonObject().has("model")){
+        if (!jsonIn.has("block_item")){
             logger.warn("Block " + jsonIn.get("id").getAsString() + " does not define an item model ; A model will be generated from its block model;");
             JsonObject blockItemModelObject = new JsonObject();
             blockItemModelObject.addProperty("parent", References.MODID + ":block/" + jsonIn.get("id").getAsString());
@@ -57,7 +57,12 @@ public class BlockModelGenerator {
             }
         } else{
             JsonObject blockItemModelObject = new JsonObject();
-            blockItemModelObject.addProperty("parent", jsonIn.get("block_item").getAsJsonObject().get("model").getAsString());
+            if (!jsonIn.get("block_item").getAsJsonObject().has("model")){
+                logger.info("Block " + jsonIn.get("id").getAsString() + " contains 'block_item' but does not define a model; A model will be generated from the block model;");
+                blockItemModelObject.addProperty("parent", References.MODID + ":block/" + jsonIn.get("id").getAsString());
+            } else{
+                blockItemModelObject.addProperty("parent", jsonIn.get("block_item").getAsJsonObject().get("model").getAsString());    
+            }
             if (jsonIn.get("block_item").getAsJsonObject().has("textures")){
                 blockItemModelObject.add("textures", jsonIn.get("block_item").getAsJsonObject().get("textures").getAsJsonObject());
             } else{

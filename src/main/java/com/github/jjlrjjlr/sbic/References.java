@@ -7,10 +7,13 @@ import java.util.Set;
 
 import com.google.gson.JsonObject;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.fabricmc.loader.api.FabricLoader;
 
 public class References {
-    //private static Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getLogger();
 
     public static final File CONFIG_DIRECTORY = new File(FabricLoader.getInstance().getConfigDirectory() + "/SimpleBlockItemCreation");
 
